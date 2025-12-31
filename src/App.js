@@ -1,6 +1,113 @@
+import { useState } from "react";
 import { FaLinkedin, FaGithub, FaYoutube, FaGlobe } from "react-icons/fa";
 import mcafeeLogo from "./assets/mcafee_logo.png";
 import gskLogo from "./assets/gsk_logo.jpg";
+
+/* ===================== */
+/* TRANSLATIONS */
+/* ===================== */
+
+const T = {
+  es: {
+    pdf_text: "Descargar PDF",
+    pdf_downloading: "descargando pdf",
+    location: "📍 Verín (Ourense - España)",
+    profile:
+      "Analítico de Datos con experiencia en procesos ELT.",
+    skills: "Habilidades",
+    experience: "Experiencia laboral",
+    education: "Formación académica",
+    educationBullets: [
+      "🎓 Curso en Ciencia de Datos — KSchool Madrid (2018)",
+      "🎓 Ingeniería en Organización Industrial — Universidad del País Vasco (2012–2015)",
+      "🎓 Ingeniería Técnica de Obras Públicas — Universidad de Salamanca (2007–2012)",
+    ],
+    languages: "Idiomas",
+    languageBullets: [
+      "🇪🇸 Castellano / Gallego",
+      "🇬🇧 Inglés",
+      "🇵🇹 Portugués",
+    ],
+    cyclistTitle: "🚴 Cicloviajero — Verín, Tokio, Sydney, Verín",
+    cyclistTime: "Marzo 2024 – Noviembre 2025 · 1 año y 8 meses",
+    cyclistBullets: [
+      "41.500 km recorridos",
+      "32 países",
+      "Desarrollo de autonomía, resiliencia y adaptación continua",
+    ],
+
+    mcafeeTitle: "Analítico de Datos — McAfee",
+    mcafeeTime: "Abril 2020 – Junio 2023 · 3 años y 1 mes",
+    mcafeeBullets: [
+      "Construcción de pipelines ELT conectando Databricks y Power BI",
+      "Análisis de telemetría para detectar fricciones entre cliente y software",
+      "Estudios de usuarios (localización, comportamiento y estilo de vida)",
+      "Análisis de tasas de activación, compra y desinstalación",
+      "Predicción diaria de ventas e identificación de nuevos mercados",
+      "Clasificación de comentarios (Voz del Cliente)",
+      "Automatización de procesos mediante Python",
+    ],
+
+    gskTitle: "Gestor de materiales — GlaxoSmithKline",
+    gskTime: "Enero 2015 – Mayo 2020 · 5 años y 4 meses",
+    gskBullets: [
+      "Control y automatización de KPIs usando VBA (Excel)",
+      "Gestión de cambios de artwork con fábricas del grupo",
+      "Control de cobertura de stock de embalajes impresos",
+    ],
+  },
+
+  en: {
+    pdf_text: "Download PDF",
+    pdf_downloading: "downloading pdf",
+    location: "📍 Verín (Ourense - Spain)",
+    profile:
+      "Data Analyst with experience in ELT processes.",
+    skills: "Skills",
+    experience: "Work Experience",
+    education: "Education",
+    educationBullets: [
+      "🎓 Data Science — KSchool Madrid (2018)",
+      "🎓 Industrial Engineering — University of the Basque Country (2012–2015)",
+      "🎓 Technical Engineering in Public Works — University of Salamanca (2007–2012)",
+    ],
+    languages: "Languages",
+    languageBullets: [
+      "🇪🇸 Spanish / Galician",
+      "🇬🇧 English",
+      "🇵🇹 Portuguese",
+    ],
+
+    cyclistTitle: "🚴 Bicycle traveler — Verín, Tokyo, Sydney, Verín",
+    cyclistTime: "March 2024 – November 2025 · 1 year and 8 months",
+    cyclistBullets: [
+      "41,500 km traveled",
+      "32 countries",
+      "Development of autonomy, resilience, and continuous adaptation",
+    ],
+
+    mcafeeTitle: "Data Analyst — McAfee",
+    mcafeeTime: "April 2020 – June 2023 · 3 years and 1 month",
+    mcafeeBullets: [
+      "Built ELT pipelines connecting Databricks and Power BI",
+      "Analyzed telemetry data to identify customer friction points",
+      "Conducted user research (location, behavior, lifestyle)",
+      "Analyzed activation, purchase, and uninstall rates",
+      "Developed daily sales forecasts and identified new markets",
+      "Implemented Voice of Customer analysis",
+      "Automated processes using Python",
+    ],
+
+    gskTitle: "Materials Planner — GlaxoSmithKline",
+    gskTime: "January 2015 – May 2020 · 5 years and 4 months",
+    gskBullets: [
+      "KPI control and automation using VBA (Excel)",
+      "Artwork change management across manufacturing sites",
+      "Stock coverage control of printed packaging components",
+    ],
+  },
+};
+
 
 function App() {
   return (
@@ -15,12 +122,13 @@ export default App;
 /* ===================== */
 
 function CV() {
+  const [lang, setLang] = useState("es");
   async function exportToPDF() {
     // show simple feedback to user because PDF generation can take some seconds
     const btn = document.querySelector('.no-print');
     const originalText = btn ? btn.textContent : '';
     if (btn) {
-      btn.textContent = 'descargando pdf';
+      btn.textContent = T[lang].pdf_downloading;
       btn.disabled = true;
     }
 
@@ -141,11 +249,22 @@ function CV() {
         onClick={exportToPDF}
         style={styles.pdfButton}
       >
-        Descargar PDF
+        {T[lang].pdf_text}
       </button>
       <header style={styles.header}>
+        <button
+          onClick={() => setLang(lang === "en" ? "es" : "en")}
+          style={{...styles.language_button,
+                  backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
+          }}
+          title="Change language"
+        >
+          <FaGlobe style={{ fontSize: "14px" }} />
+          {lang === "en" ? "EN" : "ES"}
+        </button>
+
         <h1 style={styles.title}>Francisco Álvarez González</h1>
-        <p style={styles.subtitle}>📍 Verín (Ourense)</p>
+        <p style={styles.subtitle}>{T[lang].location}</p>
         <p style={styles.contactLine}>
           📞 +34 687 494 294 · ✉️ paquinho89@gmail.com ·
           <div style={styles.socials}>
@@ -181,74 +300,74 @@ function CV() {
 
       <section style={styles.section}>
         <p style={styles.intro}>
-          Analítico de Datos con experiencia en procesos ELT y con interés en la industria textil.
+          {T[lang].profile}
         </p>
       </section>
 
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Habilidades</h2>
+        <h2 style={styles.sectionTitle}>{T[lang].skills}</h2>
         <div style={styles.skills}>
-          {['SQL', 'Python', 'Django', 'Databricks', 'HTML', 'Power BI', 'Excel'].map((s) => (
+          {['SQL', 'Python', 'Django','Git', 'Databricks', 'HTML', 'Power BI', 'Excel'].map((s) => (
             <div key={s} style={styles.skillChip}>{s}</div>
           ))}
         </div>
       </section>
 
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Experiencia laboral</h2>
+        <h2 style={styles.sectionTitle}>{T[lang].experience}</h2>
 
         <div style={styles.job}>
-          <h3 style={styles.jobTitle}>🚴 Cicloviajero — Verín, Tokio, Sydney, Verín</h3>
-          <span>Marzo 2024 – Noviembre 2025 · 1 año y 8 meses</span>
+          <h3 style={styles.jobTitle}>{T[lang].cyclistTitle}</h3>
+          <span>{T[lang].cyclistTime}</span>
           <ul>
-            <li>41.500 km recorridos</li>
-            <li>32 países</li>
-            <li>Desarrollo de autonomía, resiliencia y adaptación continua</li>
+            <li>{T[lang].cyclistBullets[0]}</li>
+            <li>{T[lang].cyclistBullets[1]}</li>
+            <li>{T[lang].cyclistBullets[2]}</li>
           </ul>
         </div>
 
         <div style={{ ...styles.job, borderLeft: "4px solid #C60B1E" }}>
-          <h3 style={styles.jobTitle}><img src={mcafeeLogo} alt="McAfee" style={styles.companyLogo} />Analítico de Datos — McAfee</h3>
-          <span>Abril 2020 – Junio 2023 · 3 años y 1 mes</span>
+          <h3 style={styles.jobTitle}><img src={mcafeeLogo} alt="McAfee" style={styles.companyLogo} />{T[lang].mcafeeTitle}</h3>
+          <span>{T[lang].mcafeeTime}</span>
           <ul>
-            <li>Construcción de pipelines ELT conectando Databricks y Power BI</li>
-            <li>Análisis de los datos de la telemetría del ordenador para identificar puntos de fricción entre el cliente y el software.</li>
-            <li>Realización de estudios de los usuarios (localización, comportamiento y estilo de vida).</li>
-            <li>Análisis de tasas de activación, compra y desinstalación en canales de Retail, Directo y OEM.</li>
-            <li>Predicción de las ventas diarias e identificación de nuevas oportunidades de mercado.</li>
-            <li>Clasificación de los comentarios recibidos por nuestros usuarios.</li>
-            <li>Automatización de análisis y procesos principalmente mediante Python.</li>
+            <li>{T[lang].mcafeeBullets[0]}</li>
+            <li>{T[lang].mcafeeBullets[1]}</li>
+            <li>{T[lang].mcafeeBullets[2]}</li>
+            <li>{T[lang].mcafeeBullets[3]}</li>
+            <li>{T[lang].mcafeeBullets[4]}</li>
+            <li>{T[lang].mcafeeBullets[5]}</li>
+            <li>{T[lang].mcafeeBullets[6]}</li>
           </ul>
         </div>
 
         <div style={{ ...styles.job, borderLeft: "4px solid #F97316" }}>
-          <h3 style={styles.jobTitle}><img src={gskLogo} alt="GSK" style={styles.companyLogo} />Gestor de materiales — GlaxoSmithKline</h3>
-          <span>Enero 2015 – Mayo 2020 · 5 años y 4 meses</span>
+          <h3 style={styles.jobTitle}><img src={gskLogo} alt="GSK" style={styles.companyLogo} />{T[lang].gskTitle}</h3>
+          <span>{T[lang].gskTime}</span>
           <ul>
-            <li>Control y automatización de KPIs usando VBA (Excel)</li>
-            <li>Gestión de cambios de artwork con las distintas fábricas del grupo</li>
-            <li>Control de la cobertura de stock de componentes de embalaje impreso</li>
+            <li>{T[lang].gskBullets[0]}</li>
+            <li>{T[lang].gskBullets[1]}</li>
+            <li>{T[lang].gskBullets[2]}</li>
           </ul>
         </div>
       </section>
 
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Formación académica</h2>
+        <h2 style={styles.sectionTitle}>{T[lang].education}</h2>
         <ul style={styles.noList}>
-          <li>🎓 Curso en Ciencia de Datos — KSchool Madrid (2018)</li>
-          <li>🎓 Ingeniería en Organización Industrial — Universidad del País Vasco (2012–2015)</li>
-          <li>🎓 Ingeniería Técnica de Obras Públicas — Universidad de Salamanca (2007–2012)</li>
+          <li>{T[lang].educationBullets[0]}</li>
+          <li>{T[lang].educationBullets[1]}</li>
+          <li>{T[lang].educationBullets[2]}</li>
         </ul>
       </section>
 
       
 
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Idiomas</h2>
+        <h2 style={styles.sectionTitle}>{T[lang].languages}</h2>
         <div style={styles.languages}>
-          <LanguageBar label="🇪🇸 Castellano / Gallego" percent={100} color="#F97316" />
-          <LanguageBar label="🇬🇧 Inglés" percent={85} color="#1E4DB7" />
-          <LanguageBar label="🇵🇹 Portugués" percent={75} color="#C60B1E" />
+          <LanguageBar label={T[lang].languageBullets[0]} percent={100} color="#F97316" />
+          <LanguageBar label={T[lang].languageBullets[1]} percent={85} color="#1E4DB7" />
+          <LanguageBar label={T[lang].languageBullets[2]} percent={75} color="#C60B1E" />
         </div>
       </section>
     </div>
@@ -260,6 +379,24 @@ function CV() {
 /* ===================== */
 
 const styles = {
+  language_button:{
+    position: "relative",
+    top: "16px",
+    left: "16px",
+
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    padding: "6px 12px",
+    borderRadius: "999px",
+    border: "1px solid rgba(0,0,0,0.12)",
+    color: "#fff",
+    fontSize: "12px",
+    fontWeight: 600,
+    cursor: "pointer",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.12)",
+    transition: "all 200ms ease",
+  },
   cv: {
     maxWidth: "880px",
     margin: "40px auto",
