@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.4",
+    "puppeteer": "^24.34.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-scripts": "5.0.1",
@@ -20,7 +21,7 @@
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-    },
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

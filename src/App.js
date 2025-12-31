@@ -16,6 +16,41 @@ export default App;
 
 function CV() {
   async function exportToPDF() {
+    // show simple feedback to user because PDF generation can take some seconds
+    const btn = document.querySelector('.no-print');
+    const originalText = btn ? btn.textContent : '';
+    if (btn) {
+      btn.textContent = 'descargando pdf';
+      btn.disabled = true;
+    }
+
+    // add spinner + indeterminate progress bar (CSS injected once)
+    if (!document.getElementById('pdf-spinner-styles')) {
+      const style = document.createElement('style');
+      style.id = 'pdf-spinner-styles';
+      style.textContent = `
+        @keyframes pdf-spin { to { transform: rotate(360deg); } }
+        @keyframes pdf-progress-move { 0% { left: -40%; } 100% { left: 100%; } }
+        .pdf-spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:pdf-spin 0.9s linear infinite; margin-left:8px; vertical-align:middle; }
+        .pdf-progress-bar { position:fixed; top:0; left:0; height:4px; width:100%; pointer-events:none; z-index:99999; }
+        .pdf-progress-bar > .stripe { position:absolute; top:0; left:-40%; height:100%; width:40%; background:linear-gradient(90deg,#06b6d4,#60a5fa); animation:pdf-progress-move 1.6s linear infinite; }
+      `;
+      document.head.appendChild(style);
+    }
+    let spinnerEl = null;
+    let progressEl = null;
+    if (btn) {
+      spinnerEl = document.createElement('span');
+      spinnerEl.className = 'pdf-spinner';
+      btn.appendChild(spinnerEl);
+    }
+    progressEl = document.createElement('div');
+    progressEl.className = 'pdf-progress-bar';
+    const stripe = document.createElement('div');
+    stripe.className = 'stripe';
+    progressEl.appendChild(stripe);
+    document.body.appendChild(progressEl);
+
     try {
       const html2canvasModule = await import('html2canvas');
       const { jsPDF } = await import('jspdf');
@@ -62,24 +97,40 @@ function CV() {
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
 
-      // PDF margins in mm (smaller margins to increase usable area)
-      const margin = 8; // mm
+      // PDF margins in mm
+      const margin = 6; // smaller margins to use more space
+      const usableWidth = pageWidth - margin * 2;
+      const usableHeight = pageHeight - margin * 2;
 
-      // Fit the canvas into the printable area while preserving aspect ratio.
-      // Compute final width in mm and scale height accordingly.
-      const finalWidth = pageWidth - margin * 2;
-      const finalHeight = (canvas.height / canvas.width) * finalWidth;
-      const marginX = margin;
-      // Center vertically but keep at least `margin` from edges
-      const marginY = Math.max((pageHeight - finalHeight) / 2, margin);
+      // final image dimensions in mm when scaled to fit width
+      let imgWidthMm = usableWidth;
+      let imgHeightMm = (canvas.height / canvas.width) * imgWidthMm;
 
-      pdf.addImage(pngData, 'PNG', marginX, marginY, finalWidth, finalHeight);
+      // If the rendered image is taller than an A4 page, scale it down to fit a single page
+      if (imgHeightMm > usableHeight) {
+        const fitScale = usableHeight / imgHeightMm;
+        imgWidthMm = imgWidthMm * fitScale;
+        imgHeightMm = usableHeight;
+      }
+
+      // Center the image horizontally and place at top margin
+      const marginX = Math.max((pageWidth - imgWidthMm) / 2, margin);
+      const marginY = margin;
+      pdf.addImage(pngData, 'PNG', marginX, marginY, imgWidthMm, imgHeightMm);
+
       // remove temporary wrapper
       document.body.removeChild(wrapper);
       pdf.save('cv.pdf');
     } catch (err) {
       console.error(err);
       alert('Error al generar PDF. Asegúrate de haber instalado html2canvas y jspdf (npm install html2canvas jspdf)');
+    } finally {
+      if (btn) {
+        btn.textContent = originalText || 'Descargar PDF';
+        btn.disabled = false;
+        if (spinnerEl && spinnerEl.parentNode) spinnerEl.parentNode.removeChild(spinnerEl);
+      }
+      if (progressEl && progressEl.parentNode) progressEl.parentNode.removeChild(progressEl);
     }
   }
   return (
@@ -150,7 +201,7 @@ function CV() {
           <h3 style={styles.jobTitle}>🚴 Cicloviajero — Verín, Tokio, Sydney, Verín</h3>
           <span>Marzo 2024 – Noviembre 2025 · 1 año y 8 meses</span>
           <ul>
-            <li>41,500 km recorridos</li>
+            <li>41.500 km recorridos</li>
             <li>32 países</li>
             <li>Desarrollo de autonomía, resiliencia y adaptación continua</li>
           </ul>
@@ -162,9 +213,9 @@ function CV() {
           <ul>
             <li>Construcción de pipelines ELT conectando Databricks y Power BI</li>
             <li>Análisis de los datos de la telemetría del ordenador para identificar puntos de fricción entre el cliente y el software.</li>
-            <li>Realización de estudios de nuestros usuarios (localización, comportamiento y estilo de vida).</li>
+            <li>Realización de estudios de los usuarios (localización, comportamiento y estilo de vida).</li>
             <li>Análisis de tasas de activación, compra y desinstalación en canales de Retail, Directo y OEM.</li>
-            <li>Desarrollo de previsiones diarias de ventas e identificación de nuevas oportunidades de mercado.</li>
+            <li>Predicción de las ventas diarias e identificación de nuevas oportunidades de mercado.</li>
             <li>Clasificación de los comentarios recibidos por nuestros usuarios.</li>
             <li>Automatización de análisis y procesos principalmente mediante Python.</li>
           </ul>
@@ -195,9 +246,9 @@ function CV() {
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>Idiomas</h2>
         <div style={styles.languages}>
-          <LanguageBar label="🇪🇸 Castellano / Gallego" percent={100} color="#C60B1E" />
+          <LanguageBar label="🇪🇸 Castellano / Gallego" percent={100} color="#F97316" />
           <LanguageBar label="🇬🇧 Inglés" percent={85} color="#1E4DB7" />
-          <LanguageBar label="🇵🇹 Portugués" percent={75} color="#007A3D" />
+          <LanguageBar label="🇵🇹 Portugués" percent={75} color="#C60B1E" />
         </div>
       </section>
     </div>
@@ -261,7 +312,7 @@ const styles = {
     padding: "14px 16px",
     borderRadius: "10px",
     boxShadow: "0 6px 18px rgba(16,24,40,0.04)",
-    borderLeft: "4px solid #60a5fa",
+    borderLeft: "4px solid #1E4DB7",
   },
   companyLogo: {
     width: "36px",
@@ -401,43 +452,3 @@ function LanguageBar({ label, percent, color }) {
   );
 }
 
-/* ===================== */
-/* CUSTOM TAMBORINE ICON */
-/* ===================== */
-
-function TambourineIcon({ style }) {
-  return (
-    <svg
-      style={style}
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      {/* Tilt entire tambourine slightly */}
-      <g transform="rotate(-18 12 12)">
-        {/* Wooden rim */}
-        <circle cx="12" cy="12" r="9" fill="#8B5E3C" />
-        {/* Inner skin inset (shows the yellow drumhead) */}
-        <circle cx="12" cy="12" r="7.6" fill="#FFD54A" />
-
-        {/* Ferreñas / jingles: small gold discs positioned around rim */}
-        <circle cx="5.2" cy="8.2" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="7.6" cy="5.0" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="11.6" cy="3.6" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="15.6" cy="5.0" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="18.0" cy="8.2" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="18.0" cy="15.8" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="15.6" cy="19.0" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="11.6" cy="20.4" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="7.6" cy="19.0" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-        <circle cx="5.2" cy="15.8" r="0.9" fill="#D4AF37" stroke="#B8860B" strokeWidth="0.08" />
-
-        {/* Slight wood grain arc to suggest texture */}
-        <path d="M5 12c1-2 4-4 7-4s6 2 7 4" stroke="#7A4F2F" strokeWidth="0.6" fill="none" strokeLinecap="round" opacity="0.9" />
-      </g>
-    </svg>
-  );
-}
