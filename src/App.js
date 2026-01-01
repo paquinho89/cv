@@ -13,9 +13,9 @@ const T = {
     pdf_downloading: "descargando pdf",
     location: "📍 Verín (Ourense - España)",
     profile:
-      "Analítico de Datos con experiencia en procesos ELT.",
+      "Analista de Datos con 3 años de experiencia en una empresa de antivirus. Tras una pausa profesional para ver el mundo con su bicicleta, ahora busca nuevos desafíos y oportunidades para seguir creciendo junto a los mejores equipos.",
     skills: "Habilidades",
-    experience: "Experiencia laboral",
+    experience: "Experiencia",
     education: "Formación académica",
     educationBullets: [
       "🎓 Curso en Ciencia de Datos — KSchool Madrid (2018)",
@@ -39,13 +39,13 @@ const T = {
     mcafeeTitle: "Analítico de Datos — McAfee",
     mcafeeTime: "Abril 2020 – Junio 2023 · 3 años y 1 mes",
     mcafeeBullets: [
-      "Construcción de pipelines ELT conectando Databricks y Power BI",
-      "Análisis de telemetría para detectar fricciones entre cliente y software",
-      "Estudios de usuarios (localización, comportamiento y estilo de vida)",
-      "Análisis de tasas de activación, compra y desinstalación",
+      "Hacer los datos accesibles y útiles para los equipos de marketing.",
+      "Automatización de procesos y carga de datos",
+      "Análisis de la telemetría del ordenador para detectar puntos de fricción entre el usuario y el software",
+      "Estudio de los usuarios (localización, comportamiento, clase social, estilo de vida...)",
+      "Análisis de tasas de activación, compra y desinstalación en los disintos canales de distribución: Retail, Directo y OEM ",
       "Predicción diaria de ventas e identificación de nuevos mercados",
-      "Clasificación de comentarios (Voz del Cliente)",
-      "Automatización de procesos mediante Python",
+      "Clasificación y análisis de los comentarios recibidos por los usuarios",
     ],
 
     gskTitle: "Gestor de materiales — GlaxoSmithKline",
@@ -62,14 +62,14 @@ const T = {
     pdf_downloading: "downloading pdf",
     location: "📍 Verín (Ourense - Spain)",
     profile:
-      "Data Analyst with experience in ELT processes.",
+      "Data Analyst with 3 years of experience in an antivirus company. After taking a career break to explore the world by bicycle, I am now looking for new challenges and opportunities to learn and grow alongside the best teams.",
     skills: "Skills",
-    experience: "Work Experience",
+    experience: "Experience",
     education: "Education",
     educationBullets: [
-      "🎓 Data Science — KSchool Madrid (2018)",
-      "🎓 Industrial Engineering — University of the Basque Country (2012–2015)",
-      "🎓 Technical Engineering in Public Works — University of Salamanca (2007–2012)",
+      "🎓 Data Science Master Program — KSchool Madrid (2018)",
+      "🎓 Industrial Management Engineering — University of the Basque Country (2012–2015)",
+      "🎓 Civil Engineering — University of Salamanca (2007–2012)",
     ],
     languages: "Languages",
     languageBullets: [
@@ -89,16 +89,16 @@ const T = {
     mcafeeTitle: "Data Analyst — McAfee",
     mcafeeTime: "April 2020 – June 2023 · 3 years and 1 month",
     mcafeeBullets: [
-      "Built ELT pipelines connecting Databricks and Power BI",
-      "Analyzed telemetry data to identify customer friction points",
-      "Conducted user research (location, behavior, lifestyle)",
-      "Analyzed activation, purchase, and uninstall rates",
-      "Developed daily sales forecasts and identified new markets",
-      "Implemented Voice of Customer analysis",
-      "Automated processes using Python",
+      "Making data accessible and actionable for marketing teams",
+      "Process automation and data ingestion",
+      "Analysis of computer telemetry to identify friction points between the user and the software",
+      "User studies (location, behavior, social class, lifestyle, etc.)",
+      "Analysis of activation, purchase, and uninstall rates across different distribution channels: Retail, Direct, and OEM",
+      "Daily sales forecasting and identification of new markets",
+      "Classification and analysis of user feedback and reviews",
     ],
 
-    gskTitle: "Materials Planner — GlaxoSmithKline",
+    gskTitle: "Pack Management — GlaxoSmithKline",
     gskTime: "January 2015 – May 2020 · 5 years and 4 months",
     gskBullets: [
       "KPI control and automation using VBA (Excel)",
@@ -251,17 +251,18 @@ function CV() {
       >
         {T[lang].pdf_text}
       </button>
+      <button
+        onClick={() => setLang(lang === "es" ? "en" : "es")}
+        style={{...styles.language_button,
+                backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
+        }}
+        title="Change language"
+      >
+        <FaGlobe style={{ fontSize: "14px" }} />
+        {lang === "en" ? "Language EN" : "Idioma ES"}
+      </button>
       <header style={styles.header}>
-        <button
-          onClick={() => setLang(lang === "en" ? "es" : "en")}
-          style={{...styles.language_button,
-                  backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
-          }}
-          title="Change language"
-        >
-          <FaGlobe style={{ fontSize: "14px" }} />
-          {lang === "en" ? "EN" : "ES"}
-        </button>
+        
 
         <h1 style={styles.title}>Francisco Álvarez González</h1>
         <p style={styles.subtitle}>{T[lang].location}</p>
@@ -380,18 +381,19 @@ function CV() {
 
 const styles = {
   language_button:{
-    position: "relative",
-    top: "16px",
-    left: "16px",
+    position: "fixed",
+    right: "200px",
+    top: "18px",
+    zIndex: 9999,
 
     display: "flex",
     alignItems: "center",
     gap: "6px",
-    padding: "6px 12px",
-    borderRadius: "999px",
+    padding: "8px 12px",
+    borderRadius: "8px",
     border: "1px solid rgba(0,0,0,0.12)",
     color: "#fff",
-    fontSize: "12px",
+    fontSize: "13px",
     fontWeight: 600,
     cursor: "pointer",
     boxShadow: "0 4px 10px rgba(0,0,0,0.12)",
