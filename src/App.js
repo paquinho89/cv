@@ -31,8 +31,7 @@ const T = {
     cyclistTitle: "🚴 Cicloviajero — Verín, Tokio, Sydney, Verín",
     cyclistTime: "Marzo 2024 – Noviembre 2025 · 1 año y 8 meses",
     cyclistBullets: [
-      "41.500 km recorridos",
-      "32 países",
+      "41.500 km recorridos y 32 países",
       "Desarrollo de autonomía, resiliencia y adaptación continua",
     ],
 
@@ -52,8 +51,7 @@ const T = {
     gskTime: "Enero 2015 – Mayo 2020 · 5 años y 4 meses",
     gskBullets: [
       "Control y automatización de KPIs usando VBA (Excel)",
-      "Gestión de cambios de artwork con fábricas del grupo",
-      "Control de cobertura de stock de embalajes impresos",
+      "Gestión de cambios en el empaquetado entre las fábricas del grupo y las agencias reguladoras",
     ],
   },
 
@@ -81,8 +79,7 @@ const T = {
     cyclistTitle: "🚴 Bicycle traveler — Verín, Tokyo, Sydney, Verín",
     cyclistTime: "March 2024 – November 2025 · 1 year and 8 months",
     cyclistBullets: [
-      "41,500 km traveled",
-      "32 countries",
+      "41,500 km travelled and 32 countries",
       "Development of autonomy, resilience, and continuous adaptation",
     ],
 
@@ -90,20 +87,19 @@ const T = {
     mcafeeTime: "April 2020 – June 2023 · 3 years and 1 month",
     mcafeeBullets: [
       "Making data accessible and actionable for marketing teams",
-      "Process automation and data ingestion",
+      "Process automation",
       "Analysis of computer telemetry to identify friction points between the user and the software",
-      "User studies (location, behavior, social class, lifestyle, etc.)",
+      "User analysis (location, behavior, social class, lifestyle, etc.)",
       "Analysis of activation, purchase, and uninstall rates across different distribution channels: Retail, Direct, and OEM",
       "Daily sales forecasting and identification of new markets",
-      "Classification and analysis of user feedback and reviews",
+      "Classification and analysis of user feedback",
     ],
 
     gskTitle: "Pack Management — GlaxoSmithKline",
     gskTime: "January 2015 – May 2020 · 5 years and 4 months",
     gskBullets: [
       "KPI control and automation using VBA (Excel)",
-      "Artwork change management across manufacturing sites",
-      "Stock coverage control of printed packaging components",
+      "Package management changes across regulatory agencies and manufacturing sites",
     ],
   },
 };
@@ -122,7 +118,7 @@ export default App;
 /* ===================== */
 
 function CV() {
-  const [lang, setLang] = useState("es");
+  const [lang, setLang] = useState("en");
   async function exportToPDF() {
     // show simple feedback to user because PDF generation can take some seconds
     const btn = document.querySelector('.no-print');
@@ -279,7 +275,7 @@ function CV() {
             </a>
 
             <a
-              href="https://github.com/paquinho89"
+              href="https://github.com/paquinho89?tab=repositories"
               target="_blank"
               rel="noreferrer"
               style={styles.icon}
@@ -323,7 +319,6 @@ function CV() {
           <ul>
             <li>{T[lang].cyclistBullets[0]}</li>
             <li>{T[lang].cyclistBullets[1]}</li>
-            <li>{T[lang].cyclistBullets[2]}</li>
           </ul>
         </div>
 
