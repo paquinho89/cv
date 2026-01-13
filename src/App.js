@@ -48,7 +48,7 @@ const T = {
     ],
 
     gskTitle: "Gestor de materiales — GlaxoSmithKline",
-    gskTime: "Enero 2015 – Mayo 2020 · 5 años y 4 meses",
+    gskTime: "Enero 2015 – Marzo 2020 · 5 años y 4 meses",
     gskBullets: [
       "Control y automatización de KPIs usando VBA (Excel)",
       "Gestión de cambios en el empaquetado entre las fábricas del grupo y las agencias reguladoras",
@@ -96,7 +96,7 @@ const T = {
     ],
 
     gskTitle: "Pack Management — GlaxoSmithKline",
-    gskTime: "January 2015 – May 2020 · 5 years and 4 months",
+    gskTime: "January 2015 – March 2020 · 5 years and 4 months",
     gskBullets: [
       "KPI control and automation using VBA (Excel)",
       "Package management changes across regulatory agencies and manufacturing sites",
@@ -174,7 +174,7 @@ function CV() {
           el.style.boxShadow = 'none';
           el.style.filter = 'none';
           el.style.textShadow = 'none';
-        } catch (e) {}
+        } catch (e) { }
       });
 
       // Ensure background is white
@@ -249,8 +249,9 @@ function CV() {
       </button>
       <button
         onClick={() => setLang(lang === "es" ? "en" : "es")}
-        style={{...styles.language_button,
-                backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
+        style={{
+          ...styles.language_button,
+          backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
         }}
         title="Change language"
       >
@@ -258,7 +259,7 @@ function CV() {
         {lang === "en" ? "Language EN" : "Idioma ES"}
       </button>
       <header style={styles.header}>
-        
+
 
         <h1 style={styles.title}>Francisco Álvarez González</h1>
         <p style={styles.subtitle}>{T[lang].location}</p>
@@ -304,7 +305,7 @@ function CV() {
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>{T[lang].skills}</h2>
         <div style={styles.skills}>
-          {['SQL', 'Python', 'Django','Git', 'Databricks', 'HTML', 'Power BI', 'Excel'].map((s) => (
+          {['SQL', 'Python', 'Django', 'Git', 'Databricks', 'HTML', 'Power BI', 'Excel'].map((s) => (
             <div key={s} style={styles.skillChip}>{s}</div>
           ))}
         </div>
@@ -342,7 +343,6 @@ function CV() {
           <ul>
             <li>{T[lang].gskBullets[0]}</li>
             <li>{T[lang].gskBullets[1]}</li>
-            <li>{T[lang].gskBullets[2]}</li>
           </ul>
         </div>
       </section>
@@ -356,7 +356,7 @@ function CV() {
         </ul>
       </section>
 
-      
+
 
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>{T[lang].languages}</h2>
@@ -375,7 +375,7 @@ function CV() {
 /* ===================== */
 
 const styles = {
-  language_button:{
+  language_button: {
     position: "fixed",
     right: "200px",
     top: "18px",
