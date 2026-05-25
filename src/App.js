@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaLinkedin, FaGithub, FaYoutube, FaGlobe } from "react-icons/fa";
 import mcafeeLogo from "./assets/mcafee_logo.png";
 import gskLogo from "./assets/gsk_logo.jpg";
+import brasindaLogo from "./assets/brasinda_logo.png";
 
 /* ===================== */
 /* TRANSLATIONS */
@@ -13,12 +14,12 @@ const T = {
     pdf_downloading: "descargando pdf",
     location: "📍 Verín (Ourense - España)",
     profile:
-      "Analista de Datos con 3 años de experiencia en una empresa de antivirus. Tras una pausa profesional para ver el mundo con su bicicleta, ahora busca nuevos desafíos y oportunidades para seguir creciendo junto a los mejores equipos.",
+      "Ingeniero con casi 9 años de experiencia laboral, en los que se incluye 3 años trabajando como Analítico de Datos para una de las empresas referentes en el sector del antivirus. Después de desarrollar mis proyectos personales, busco nuevos desafíos para seguir creciendo y aprendiendo junto a los mejores equipos.",
     skills: "Habilidades",
     experience: "Experiencia",
     education: "Formación académica",
     educationBullets: [
-      "🎓 Curso en Ciencia de Datos — KSchool Madrid (2018)",
+      "🎓 Máster en Ciencia de Datos — KSchool Madrid (2018)",
       "🎓 Ingeniería en Organización Industrial — Universidad del País Vasco (2012–2015)",
       "🎓 Ingeniería Técnica de Obras Públicas — Universidad de Salamanca (2007–2012)",
     ],
@@ -28,11 +29,12 @@ const T = {
       "🇬🇧 Inglés",
       "🇵🇹 Portugués",
     ],
-    cyclistTitle: "🚴 Cicloviajero — Verín, Tokio, Sydney, Verín",
-    cyclistTime: "Marzo 2024 – Noviembre 2025 · 1 año y 8 meses",
+    cyclistTitle: "Proyectos personales",
+    cyclistTime: "Junio 2023 – Actualidad",
     cyclistBullets: [
-      "41.500 km recorridos y 32 países",
-      "Desarrollo de autonomía, resiliencia y adaptación continua",
+      "Desarrollo de un producto SaaS para ayudar a la gestión de eventos. El frontend está hecho con React y el Backend con Django: <a href=\"https://brasinda.com\" target=\"_blank\" rel=\"noopener noreferrer\">brasinda.com</a>",
+      "Viaje en bicicleta desde Verín a Tokio y desde Sydney a Verín. 41.500 km y 601 días donde he desarrollado mi autonomía, mi resilencia y mi contínua adaptación al cambio: <a href=\"https://youtube.com/@terrameiga_bike?si=rwSnhNh8WsPJG465\" target=\"_blank\" rel=\"noopener noreferrer\">terrameiga.bike</a>",
+      "Vendimias en Francia",
     ],
 
     mcafeeTitle: "Analítico de Datos — McAfee",
@@ -41,7 +43,7 @@ const T = {
       "Hacer los datos accesibles y útiles para los equipos de marketing.",
       "Automatización de procesos y carga de datos",
       "Análisis de la telemetría del ordenador para detectar puntos de fricción entre el usuario y el software",
-      "Estudio de los usuarios (localización, comportamiento, clase social, estilo de vida...)",
+      "Estudio de los clientes para el mercado estadounidense (localización, comportamiento, clase social, estilo de vida, ingresos...)",
       "Análisis de tasas de activación, compra y desinstalación en los disintos canales de distribución: Retail, Directo y OEM ",
       "Predicción diaria de ventas e identificación de nuevos mercados",
       "Clasificación y análisis de los comentarios recibidos por los usuarios",
@@ -52,6 +54,8 @@ const T = {
     gskBullets: [
       "Control y automatización de KPIs usando VBA (Excel)",
       "Gestión de cambios en el empaquetado entre las fábricas del grupo y las agencias reguladoras",
+      "Principal punto de contacto para el proyecto de Serialización del empaquetado en España",
+      "Gestión de los datos en el departamento"
     ],
   },
 
@@ -60,7 +64,7 @@ const T = {
     pdf_downloading: "downloading pdf",
     location: "📍 Verín (Ourense - Spain)",
     profile:
-      "Data Analyst with 3 years of experience in an antivirus company. After taking a career break to explore the world by bicycle, I am now looking for new challenges and opportunities to learn and grow alongside the best teams.",
+      "Engineer with nearly 9 years of experience, including 3 years in Data Analytics at a cybersecurity company. After building my own projects during a career break, I’m now looking for new challenges to keep learning and growing with great teams.",
     skills: "Skills",
     experience: "Experience",
     education: "Education",
@@ -76,11 +80,12 @@ const T = {
       "🇵🇹 Portuguese",
     ],
 
-    cyclistTitle: "🚴 Bicycle traveler — Verín, Tokyo, Sydney, Verín",
-    cyclistTime: "March 2024 – November 2025 · 1 year and 8 months",
+    cyclistTitle: "Developing personal projects",
+    cyclistTime: "June 2023 – Present",
     cyclistBullets: [
-      "41,500 km travelled and 32 countries",
-      "Development of autonomy, resilience, and continuous adaptation",
+      "Creating a SaaS product to help people manage their events. The frontend is built with React and the backend with Django: <a href=\"https://brasinda.com\" target=\"_blank\" rel=\"noopener noreferrer\">brasinda.com</a>",
+      "Traveling by bicycle from Verín to Tokyo and then from Sydney to Verín. A trip of 41,500km and 601 days where I developed my autonomy, resilience and continuous adaptation: <a href=\"https://youtube.com/@terrameiga_bike?si=rwSnhNh8WsPJG465\" target=\"_blank\" rel=\"noopener noreferrer\">terrameiga.bike</a>",
+      "Harvesting grapes in France",
     ],
 
     mcafeeTitle: "Data Analyst — McAfee",
@@ -89,7 +94,7 @@ const T = {
       "Making data accessible and actionable for marketing teams",
       "Process automation",
       "Analysis of computer telemetry to identify friction points between the user and the software",
-      "User analysis (location, behavior, social class, lifestyle, etc.)",
+      "Customer analysis for US market (location, behavior, social class, lifestyle, income, way of living etc.)",
       "Analysis of activation, purchase, and uninstall rates across different distribution channels: Retail, Direct, and OEM",
       "Daily sales forecasting and identification of new markets",
       "Classification and analysis of user feedback",
@@ -100,6 +105,8 @@ const T = {
     gskBullets: [
       "KPI control and automation using VBA (Excel)",
       "Package management changes across regulatory agencies and manufacturing sites",
+      "Leading the Serialization project in Spain",
+      "Managing the Data in the department"
     ],
   },
 };
@@ -264,8 +271,9 @@ function CV() {
         <h1 style={styles.title}>Francisco Álvarez González</h1>
         <p style={styles.subtitle}>{T[lang].location}</p>
         <p style={styles.contactLine}>
-          📞 +34 687 494 294 · ✉️ paquinho89@gmail.com ·
-          <div style={styles.socials}>
+          📞 +34 687 494 294 · ✉️ paquinho89@gmail.com
+        </p>
+        <div style={styles.socials}>
             <a
               href="https://www.linkedin.com/in/francisco-álvarez-b6b699b7"
               target="_blank"
@@ -293,7 +301,6 @@ function CV() {
               <FaYoutube />
             </a>
           </div>
-        </p>
       </header>
 
       <section style={styles.section}>
@@ -305,7 +312,7 @@ function CV() {
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>{T[lang].skills}</h2>
         <div style={styles.skills}>
-          {['SQL', 'Python', 'Django', 'Git', 'Databricks', 'HTML', 'Power BI', 'Excel'].map((s) => (
+          {['SQL', 'Python', 'Django', 'Git', 'Databricks', 'HTML', 'React', 'Power BI', 'Excel'].map((s) => (
             <div key={s} style={styles.skillChip}>{s}</div>
           ))}
         </div>
@@ -314,12 +321,13 @@ function CV() {
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>{T[lang].experience}</h2>
 
-        <div style={styles.job}>
-          <h3 style={styles.jobTitle}>{T[lang].cyclistTitle}</h3>
+        <div style={{ ...styles.job, borderLeft: "4px solid #ff0093" }}>
+          <h3 style={styles.jobTitle}><img src={brasindaLogo} alt="Brasinda" style={styles.companyLogo} />{T[lang].cyclistTitle}</h3>
           <span>{T[lang].cyclistTime}</span>
           <ul>
-            <li>{T[lang].cyclistBullets[0]}</li>
-            <li>{T[lang].cyclistBullets[1]}</li>
+            <li dangerouslySetInnerHTML={{ __html: T[lang].cyclistBullets[0] }} />
+            <li dangerouslySetInnerHTML={{ __html: T[lang].cyclistBullets[1] }} />
+            {T[lang].cyclistBullets[2] && <li>{T[lang].cyclistBullets[2]}</li>}
           </ul>
         </div>
 
@@ -341,8 +349,7 @@ function CV() {
           <h3 style={styles.jobTitle}><img src={gskLogo} alt="GSK" style={styles.companyLogo} />{T[lang].gskTitle}</h3>
           <span>{T[lang].gskTime}</span>
           <ul>
-            <li>{T[lang].gskBullets[0]}</li>
-            <li>{T[lang].gskBullets[1]}</li>
+            {T[lang].gskBullets.map((b, i) => b && <li key={i}>{b}</li>)}
           </ul>
         </div>
       </section>
@@ -538,7 +545,7 @@ const styles = {
     verticalAlign: "middle",
   },
   icon: {
-    fontSize: "18px",
+    fontSize: "22px",
     color: "#111827",
     textDecoration: "none",
   },
