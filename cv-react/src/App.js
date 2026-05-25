@@ -319,7 +319,7 @@ function CV() {
   }
   return (
     <div id="cv-root" style={styles.cv}>
-      <h1>PROBA DEPLOY 25/05/2026</h1>
+      <h1>PROBA DEPLOY 25/05/2026 cv-react</h1>
       <style>{`@media print { .no-print { display: none !important; } @page { size: A4; margin: 12mm; } body { -webkit-print-color-adjust: exact; } }`}</style>
       <button
         className="no-print"
