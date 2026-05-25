@@ -64,7 +64,7 @@ const T = {
     pdf_downloading: "downloading pdf",
     location: "📍 Verín (Ourense - Spain)",
     profile:
-      "Engineer with nearly 9 years of experience, including 3 years in Data Analytics at a cybersecurity company. After building my own projects during a career break, I’m now looking for new challenges to keep learning and growing with great teams.",
+      "CV-REACT Engineer with nearly 9 years of experience, including 3 years in Data Analytics at a cybersecurity company. After building my own projects during a career break, I’m now looking for new challenges to keep learning and growing with great teams.",
     skills: "Skills",
     experience: "Experience",
     education: "Education",
@@ -319,7 +319,6 @@ function CV() {
   }
   return (
     <div id="cv-root" style={styles.cv}>
-      <h1>PROBA DEPLOY 25/05/2026 cv-react</h1>
       <style>{`@media print { .no-print { display: none !important; } @page { size: A4; margin: 12mm; } body { -webkit-print-color-adjust: exact; } }`}</style>
       <button
         className="no-print"
