@@ -126,123 +126,14 @@ export default App;
 
 function CV() {
   const [lang, setLang] = useState("en");
-  async function exportToPDF() {
-    // show simple feedback to user because PDF generation can take some seconds
-    const btn = document.querySelector('.no-print');
-    const originalText = btn ? btn.textContent : '';
-    if (btn) {
-      btn.textContent = T[lang].pdf_downloading;
-      btn.disabled = true;
-    }
-
-    // add spinner + indeterminate progress bar (CSS injected once)
-    if (!document.getElementById('pdf-spinner-styles')) {
-      const style = document.createElement('style');
-      style.id = 'pdf-spinner-styles';
-      style.textContent = `
-        @keyframes pdf-spin { to { transform: rotate(360deg); } }
-        @keyframes pdf-progress-move { 0% { left: -40%; } 100% { left: 100%; } }
-        .pdf-spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:pdf-spin 0.9s linear infinite; margin-left:8px; vertical-align:middle; }
-        .pdf-progress-bar { position:fixed; top:0; left:0; height:4px; width:100%; pointer-events:none; z-index:99999; }
-        .pdf-progress-bar > .stripe { position:absolute; top:0; left:-40%; height:100%; width:40%; background:linear-gradient(90deg,#06b6d4,#60a5fa); animation:pdf-progress-move 1.6s linear infinite; }
-      `;
-      document.head.appendChild(style);
-    }
-    let spinnerEl = null;
-    let progressEl = null;
-    if (btn) {
-      spinnerEl = document.createElement('span');
-      spinnerEl.className = 'pdf-spinner';
-      btn.appendChild(spinnerEl);
-    }
-    progressEl = document.createElement('div');
-    progressEl.className = 'pdf-progress-bar';
-    const stripe = document.createElement('div');
-    stripe.className = 'stripe';
-    progressEl.appendChild(stripe);
-    document.body.appendChild(progressEl);
-
-    try {
-      const html2canvasModule = await import('html2canvas');
-      const { jsPDF } = await import('jspdf');
-      const html2canvas = html2canvasModule.default || html2canvasModule;
-
-      const cv = document.getElementById('cv-root');
-      if (!cv) throw new Error('CV element not found');
-
-      // Create a clean clone to render onto white background and strip shadows/print-only elements
-      const clone = cv.cloneNode(true);
-      // hide interactive/no-print elements
-      clone.querySelectorAll('.no-print').forEach((n) => n.remove());
-
-      // remove box shadows and filters from all cloned elements for a clean print look
-      clone.querySelectorAll('*').forEach((el) => {
-        try {
-          el.style.boxShadow = 'none';
-          el.style.filter = 'none';
-          el.style.textShadow = 'none';
-        } catch (e) { }
-      });
-
-      // Ensure background is white
-      clone.style.background = '#ffffff';
-      clone.style.borderRadius = '0';
-
-      // Wrap clone so html2canvas measures correctly
-      const wrapper = document.createElement('div');
-      wrapper.style.background = '#ffffff';
-      // smaller wrapper padding so content can use most of the A4 area
-      wrapper.style.padding = '8px';
-      wrapper.style.display = 'inline-block';
-      wrapper.appendChild(clone);
-      document.body.appendChild(wrapper);
-
-      // Increase scale for higher-resolution capture (crisper output)
-      const scale = 5; // higher = sharper, but slower and larger memory use
-      const canvas = await html2canvas(wrapper, { scale, useCORS: true, backgroundColor: '#ffffff', scrollY: -window.scrollY });
-
-      // Use PNG for lossless quality
-      const pngData = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-
-      // PDF margins in mm
-      const margin = 6; // smaller margins to use more space
-      const usableWidth = pageWidth - margin * 2;
-      const usableHeight = pageHeight - margin * 2;
-
-      // final image dimensions in mm when scaled to fit width
-      let imgWidthMm = usableWidth;
-      let imgHeightMm = (canvas.height / canvas.width) * imgWidthMm;
-
-      // If the rendered image is taller than an A4 page, scale it down to fit a single page
-      if (imgHeightMm > usableHeight) {
-        const fitScale = usableHeight / imgHeightMm;
-        imgWidthMm = imgWidthMm * fitScale;
-        imgHeightMm = usableHeight;
-      }
-
-      // Center the image horizontally and place at top margin
-      const marginX = Math.max((pageWidth - imgWidthMm) / 2, margin);
-      const marginY = margin;
-      pdf.addImage(pngData, 'PNG', marginX, marginY, imgWidthMm, imgHeightMm);
-
-      // remove temporary wrapper
-      document.body.removeChild(wrapper);
-      pdf.save('cv.pdf');
-    } catch (err) {
-      console.error(err);
-      alert('Error al generar PDF. Asegúrate de haber instalado html2canvas y jspdf (npm install html2canvas jspdf)');
-    } finally {
-      if (btn) {
-        btn.textContent = originalText || 'Descargar PDF';
-        btn.disabled = false;
-        if (spinnerEl && spinnerEl.parentNode) spinnerEl.parentNode.removeChild(spinnerEl);
-      }
-      if (progressEl && progressEl.parentNode) progressEl.parentNode.removeChild(progressEl);
-    }
+  function exportToPDF() {
+    // Download the static PDF from public folder
+    const link = document.createElement('a');
+    link.href = process.env.PUBLIC_URL ? process.env.PUBLIC_URL + '/CV_Francisco_Alvarez.pdf' : '/CV_Francisco_Alvarez.pdf';
+    link.download = 'CV_Francisco_Alvarez.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
   return (
     <div id="cv-root" style={styles.cv}>
