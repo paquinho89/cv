@@ -64,7 +64,7 @@ const T = {
     pdf_downloading: "downloading pdf",
     location: "📍 Verín (Ourense - Spain)",
     profile:
-      "Non CV-REACT Engineer with nearly 9 years of experience, including 3 years in Data Analytics at a cybersecurity company. After building my own projects during a career break, I’m now looking for new challenges to keep learning and growing with great teams.",
+      "Engineer with nearly 9 years of experience, including 3 years in Data Analytics at a cybersecurity company. After building my own projects during a career break, I’m now looking for new challenges to keep learning and growing with great teams.",
     skills: "Skills",
     experience: "Experience",
     education: "Education",
