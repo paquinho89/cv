@@ -301,7 +301,7 @@ export default App;
 /* ===================== */
 
 function CV() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("es");
   function exportToPDF() {
     // Caminho relativo SEMPRE funciona em localhost e produção
     let pdfPath = '/CV_Francisco_Alvarez.pdf';
@@ -331,7 +331,7 @@ function CV() {
         onClick={() => setLang(lang === "es" ? "en" : "es")}
         style={{
           ...styles.language_button,
-          backgroundColor: lang === "es" ? "#1E4DB7" : "#F97316",
+          backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
         }}
         title="Change language"
       >
