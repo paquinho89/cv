@@ -331,7 +331,7 @@ function CV() {
         onClick={() => setLang(lang === "es" ? "en" : "es")}
         style={{
           ...styles.language_button,
-          backgroundColor: lang === "en" ? "#1E4DB7" : "#F97316",
+          backgroundColor: lang === "es" ? "#1E4DB7" : "#F97316",
         }}
         title="Change language"
       >
